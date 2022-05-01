@@ -23,8 +23,8 @@ namespace Server {
 
         public void ConfigureServices(IServiceCollection services) {
 
-            services.AddSingleton(new MySQLDbConnection(_config.GetConnectionString("DefaultConnection")));
             services.AddControllers();
+            services.AddSingleton(new MySQLDbConnection(_config.GetConnectionString("DefaultConnection")));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
