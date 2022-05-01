@@ -12,6 +12,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Server.DbConnections;
+using Server.Repositories.Interfaces;
+using Server.Services;
+using Server.Services.Interfaces;
 
 namespace Server {
     public class Startup {
@@ -23,8 +26,10 @@ namespace Server {
 
         public void ConfigureServices(IServiceCollection services) {
 
-            services.AddSingleton(new MySQLDbConnection(_config.GetConnectionString("DefaultConnection")));
             services.AddControllers();
+            services.AddSingleton(new MySQLDbConnection(_config.GetConnectionString("DefaultConnection")));
+            services.AddSingleton<IProductRepository, ProductRepository>();
+            services.AddSingleton<IProductService, ProductService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
