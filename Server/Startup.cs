@@ -1,20 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
+using Server.Configuration;
+using Server.Configuration.Interfaces;
 using Server.DbConnections;
+using Server.Repositories;
 using Server.Repositories.Interfaces;
 using Server.Services;
 using Server.Services.Interfaces;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Server {
     public class Startup {
@@ -29,7 +22,18 @@ namespace Server {
             services.AddControllers();
             services.AddSingleton(new MySQLDbConnection(_config.GetConnectionString("DefaultConnection")));
             services.AddSingleton<IProductRepository, ProductRepository>();
-            services.AddSingleton<IProductService, ProductService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+               .AddJwtBearer(options => {
+                   options.TokenValidationParameters = new TokenValidationParameters {
+                       ValidateIssuerSigningKey = true,
+                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["TokenKey"])),
+                       ValidateIssuer = false,
+                       ValidateAudience = false,
+                   };
+               });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
@@ -41,6 +45,14 @@ namespace Server {
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(builder =>
+               builder.AllowAnyOrigin()
+                   .AllowAnyHeader()
+                   .AllowAnyMethod()
+           );
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

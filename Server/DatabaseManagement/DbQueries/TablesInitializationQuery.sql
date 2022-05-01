@@ -1,9 +1,10 @@
 /*
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    username VARCHAR(100) NOT NULL,
-    email_address VARCHAR(100) NOT NULL,
-    password VARCHAR(100) NOT NULL,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    email_address VARCHAR(100) NOT NULL UNIQUE,
+    password_hash BLOB NOT NULL,
+    password_salt BLOB NOT NULL,
     full_name VARCHAR(100) 
 );
 

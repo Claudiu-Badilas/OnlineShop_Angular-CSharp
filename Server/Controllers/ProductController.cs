@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Server.Models;
 using Server.Repositories.Interfaces;
 using Server.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Server.Controllers {
 
@@ -16,6 +17,7 @@ namespace Server.Controllers {
             _productService = productService;
         }
 
+        [Authorize]
         [HttpGet("")]
         public async Task<IActionResult> GetProducts() {
             var products = await _productRepo.GetProducts();
