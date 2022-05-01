@@ -13,7 +13,7 @@ export class AppComponent {
 
   constructor(private store: Store<AppState>) {}
 
-  //isLoading$ = this.store.select(fromPlatform.getSpinnerLoading);
+  isLoading$ = this.store.select(fromPlatform.getSpinnerLoading);
 
   ngOnInit(): void {}
 }
