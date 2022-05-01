@@ -45,6 +45,21 @@ namespace Server.Repositories.Interfaces {
                 await connection.ExecuteAsync(sql, new { description, image, name, price, categoryId });
             };
         }
+        
+        public async Task UpdateProduct(int productId, string name, string description, string image, double price, int categoryId) {
+            using (var connection = _conn.Connect()) {
+                connection.Open();
+                var sql = @"UPDATE products p
+                                SET p.description = @description,
+                                    p.image= @image, 
+                                    p.name = @name, 
+                                    p.price = @price, 
+                                    p.category_id = @categoryId
+                              WHERE p.id = @productId";
+
+                await connection.ExecuteAsync(sql, new { productId, description, image, name, price, categoryId });
+            };
+        }
 
         public async void DeleteProduct(int productId) {
             using (var connection = _conn.Connect()) {

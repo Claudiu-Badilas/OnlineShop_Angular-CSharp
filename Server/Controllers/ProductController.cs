@@ -32,6 +32,15 @@ namespace Server.Controllers {
             return Ok("The product has been saved successfully.");
         }
 
+        [HttpPut("product")]
+        public async Task<IActionResult> DeleteProduct([FromBody] Product product) {
+            if (!await _productService.ExistsProduct(product.Id))
+                return BadRequest("The product doesn't exists!");
+
+            await _productRepo.UpdateProduct(product.Id, product.Name, product.Description, product.Image, product.Price, product.Category.Id);
+            return Ok("The product has been updated successfully.");
+        }
+
         [HttpDelete("product/{id}")]
         public async Task<IActionResult> DeleteProduct([FromRoute] int id) {
             if (!await _productService.ExistsProduct(id))
