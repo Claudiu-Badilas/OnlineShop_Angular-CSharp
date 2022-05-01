@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Server.DbConnections;
+using Server.Repositories.Interfaces;
 
 namespace Server {
     public class Startup {
@@ -25,6 +26,7 @@ namespace Server {
 
             services.AddControllers();
             services.AddSingleton(new MySQLDbConnection(_config.GetConnectionString("DefaultConnection")));
+            services.AddSingleton<IProductRepository, ProductRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
