@@ -1,0 +1,53 @@
+.user-card {
+  height: 500px;
+  width: 600px;
+  margin-top: auto;
+  margin-bottom: auto;
+  background: white;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5px;
+}
+
+.close-btn {
+  height: 45px;
+  width: 45px;
+  color: white;
+  font-size: 13px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background-color: #ff3c00;
+  color: #ffffff;
+  &:hover {
+    background-color: #fddd07;
+    color: black;
+  }
+}
+
+.info-text {
+  font-weight: 700;
+  color: #ff3c00;
+  cursor: pointer;
+  &:hover {
+    color: #fddd07;
+  }
+}
+
+.login-btn {
+  width: 160px;
+  height: 45px;
+  border-radius: 30px;
+  background: #ff3c00;
+  color: white;
+  font-weight: 700;
+  border: none;
+  &:hover {
+    background-color: #fddd07;
+    color: black;
+  }
+}

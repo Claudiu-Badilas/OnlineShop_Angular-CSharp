@@ -1,0 +1,93 @@
+.header-info {
+  position: fixed;
+  top: 0;
+  background-color: black;
+  height: 40px;
+  font-size: 13px;
+  z-index: 1000;
+  width: 100%;
+  color: white;
+
+  .facebook {
+    margin-left: 208px;
+  }
+
+  img {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    padding-right: 5px;
+  }
+  #info {
+    cursor: pointer;
+  }
+}
+
+.header-nav-bar {
+  background-color: white;
+  padding: 15px;
+  border: 1px solid #f2e8df;
+  width: 100%;
+  font-size: 15px;
+  font-weight: bold;
+  color: black;
+  position: fixed;
+  top: 40px;
+  z-index: 1000;
+  height: 80px;
+
+  .logo {
+    height: 43px;
+    cursor: pointer;
+  }
+  .dropdown,
+  .dropup {
+    &-menu {
+      .dropdown-item {
+        padding: 5px 25px;
+
+        &:hover {
+          color: #ff3c00 !important;
+        }
+      }
+    }
+
+    &-toggle {
+      cursor: pointer;
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  .main-option {
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 800;
+    &:hover {
+      color: #ff3c00;
+    }
+  }
+
+  .btn-register {
+    width: 160px;
+    height: 50px;
+    background-color: #ff3c00;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #ffffff;
+    border: none;
+
+    &:hover {
+      background-color: #fddd07;
+      color: black;
+    }
+  }
+}
+
+.format-action {
+  font-size: 17px !important;
+  font-weight: 500 !important;
+}

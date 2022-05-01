@@ -1,0 +1,16 @@
+<div class="p-2" style="position: absolute">
+  <div ngbDropdown class="d-inline-block">
+    <button ngbDropdownToggle class="options-dropdown">
+      <div class="three-dots"></div>
+    </button>
+
+    <div ngbDropdownMenu aria-labelledby="options-dropdown">
+      <button ngbDropdownItem class="format-action" (click)="onEditClicked()">
+        Edit Product
+      </button>
+      <button ngbDropdownItem class="format-action" (click)="onDeleteClicked()">
+        Delete Product
+      </button>
+    </div>
+  </div>
+</div>
