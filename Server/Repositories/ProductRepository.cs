@@ -34,5 +34,13 @@ namespace Server.Repositories.Interfaces {
                 }, splitOn: "split");
             };
         }
+        public async void DeleteProduct(int productId) {
+            using (var connection = _conn.Connect()) {
+                connection.Open();
+                var sql = @"DELETE FROM products WHERE id = @productId";
+
+                await connection.ExecuteAsync(sql, new { productId });
+            };
+        }
     }
 }

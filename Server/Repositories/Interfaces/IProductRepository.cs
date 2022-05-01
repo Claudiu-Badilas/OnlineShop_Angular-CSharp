@@ -2,6 +2,7 @@
 
 namespace Server.Repositories.Interfaces {
     public interface IProductRepository {
-        public Task<IEnumerable<Product>> GetProducts();
+        Task<IEnumerable<Product>> GetProducts();
+        void DeleteProduct(int id);
     }
 }
