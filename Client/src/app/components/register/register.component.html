@@ -1,0 +1,118 @@
+<div class="container user-card">
+  <div class="container">
+    <div class="text-left">
+      <div class="d-flex justify-content-between align-items-center">
+        <h3 class="ml-3">Create a new account!</h3>
+        <button class="close-btn mr-2">X</button>
+      </div>
+      <p class="ml-3">
+        Already have an account?
+        <a class="info-text"> Log In</a>
+      </p>
+    </div>
+
+    <hr class="mx-2" />
+
+    <div class="ml-3 mr-3">
+      <form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm.value)">
+        <div class="mb-3">
+          <input
+            type="text"
+            class="form-control"
+            name="firstName"
+            placeholder="First name"
+            required
+            ngModel
+            #firstNameInput="ngModel"
+            [ngClass]="{
+              'is-invalid': firstNameInput.invalid && firstNameInput.touched,
+              'is-valid':
+                !(firstNameInput.invalid && firstNameInput.touched) &&
+                firstNameInput.valid
+            }"
+          />
+        </div>
+        <div class="mb-3">
+          <input
+            type="text"
+            class="form-control"
+            name="lastName"
+            placeholder="Last name"
+            required
+            ngModel
+            #lastNameInput="ngModel"
+            [ngClass]="{
+              'is-invalid': lastNameInput.invalid && lastNameInput.touched,
+              'is-valid':
+                !(lastNameInput.invalid && lastNameInput.touched) &&
+                lastNameInput.valid
+            }"
+          />
+        </div>
+        <div class="mb-3">
+          <input
+            type="text"
+            class="form-control"
+            name="username"
+            placeholder="Username"
+            required
+            ngModel
+            #usernameInput="ngModel"
+            [ngClass]="{
+              'is-invalid': usernameInput.invalid && usernameInput.touched,
+              'is-valid':
+                !(usernameInput.invalid && usernameInput.touched) &&
+                usernameInput.valid
+            }"
+          />
+        </div>
+        <div class="mb-3">
+          <input
+            type="text"
+            class="form-control"
+            name="email"
+            placeholder="Email"
+            required
+            ngModel
+            #emailInput="ngModel"
+            [ngClass]="{
+              'is-invalid': emailInput.invalid && emailInput.touched,
+              'is-valid':
+                !(emailInput.invalid && emailInput.touched) && emailInput.valid
+            }"
+          />
+        </div>
+        <div class="mb-2">
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            placeholder="Password"
+            ngModel
+            #passwordInput="ngModel"
+            required
+            [ngClass]="{
+              'is-invalid': passwordInput.invalid && passwordInput.touched,
+              'is-valid':
+                !(passwordInput.invalid && passwordInput.touched) &&
+                passwordInput.valid
+            }"
+          />
+        </div>
+        <div class="mt-4">
+          <button
+            [disabled]="registerForm.invalid || showLoading"
+            type="submit"
+            name="button"
+            class="login-btn"
+          >
+            <i *ngIf="showLoading" class="fas fa-spinner fa-spin"></i
+            >&nbsp;&nbsp;
+            <span *ngIf="showLoading">LOADING...</span>
+            <span *ngIf="!showLoading">REGISTER</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

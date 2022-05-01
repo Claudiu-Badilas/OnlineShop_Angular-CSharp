@@ -1,0 +1,24 @@
+<ngx-loading-x [show]="isLoading$ | async"></ngx-loading-x>
+<div class="container p-0 align-top">
+  <div class="title text-center pt-5 mt-5">
+    You eat better, you feel better!
+  </div>
+
+  <app-category
+    class="mx-5 px-2"
+    [categories]="categories$ | async"
+    [selectedCategory]="selectedCategory$ | async"
+    (emittedCategory)="changedCategory($event)"
+  >
+  </app-category>
+
+  <app-product
+    [products]="products$ | async"
+    [isAdminUser]="isAdminUser$ | async"
+    (viewDetailsClicked)="onViewDetails($event)"
+    (addToCartClicked)="onAddToCart($event)"
+    (editClicked)="onEdit($event)"
+    (deleteClicked)="onDelete($event)"
+  >
+  </app-product>
+</div>

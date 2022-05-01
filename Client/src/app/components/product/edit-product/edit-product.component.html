@@ -1,0 +1,165 @@
+<div class="col-xs-3 container mt-5 text-center align-top">
+  <div class="card-header border border-secondary">
+    <b>{{ typeAction | uppercase }}</b>
+  </div>
+  <div class="card-body text-center border border-secondary">
+    <form
+      novalidate
+      (ngSubmit)="editProduct(productForm.value)"
+      [formGroup]="productForm"
+    >
+      <fieldset>
+        <div class="row">
+          <div class="col-md-9">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="productNameId"
+                ><b>Product Name</b>
+              </label>
+              <div class="col-md-8">
+                <input
+                  class="form-control"
+                  [(ngModel)]="product.name"
+                  id="productNameId"
+                  formControlName="name"
+                  type="text"
+                  [ngClass]="{
+                    'is-invalid':
+                      (productForm.get('name').touched ||
+                        productForm.get('name').dirty) &&
+                      !productForm.get('name').valid
+                  }"
+                  (blur)="blur()"
+                />
+                <span class="invalid-feedback">
+                  <span *ngIf="!productForm.get('name').errors?.required">
+                    Please enter a valid product name
+                  </span>
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="productCodeId"
+                ><b>Product Price</b></label
+              >
+              <div class="col-md-8">
+                <input
+                  class="form-control"
+                  [(ngModel)]="product.price"
+                  id="productCodeId"
+                  type="number"
+                  formControlName="price"
+                  (blur)="blur()"
+                  [ngClass]="{
+                    'is-invalid':
+                      (productForm.get('price').touched ||
+                        productForm.get('price').dirty) &&
+                      !productForm.get('price').valid
+                  }"
+                />
+                <span class="invalid-feedback">
+                  <span *ngIf="!productForm.get('price').errors?.required">
+                    Please enter a valid product price
+                  </span>
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="descriptionId"
+                ><b>Product Description</b></label
+              >
+              <div class="col-md-8">
+                <textarea
+                  class="form-control"
+                  [(ngModel)]="product.description"
+                  id="descriptionId"
+                  rows="3"
+                  formControlName="description"
+                  (blur)="blur()"
+                  [ngClass]="{
+                    'is-invalid':
+                      (productForm.get('description').touched ||
+                        productForm.get('description').dirty) &&
+                      !productForm.get('description').valid
+                  }"
+                >
+                <span class="invalid-feedback">
+                  <span *ngIf="!productForm.get('price').errors?.required">
+                    Please enter a valid product description
+                  </span>
+                </span>
+                </textarea>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="productCategoryId"
+                ><b>Product Category</b></label
+              >
+              <div class="col-md-8">
+                <select
+                  (change)="handleCategory($event)"
+                  class="select-option form-control"
+                >
+                  <option
+                    *ngFor="let category of categories$ | async"
+                    [value]="category.name"
+                    class="option"
+                  >
+                    {{ category.name }}
+                  </option>
+                  <option *ngIf="!product.category" [disabled]="!edited">
+                    <button (click)="(!edited)">Select Category...</button>
+                  </option>
+                  <option *ngIf="product.category" [disabled]="!edited">
+                    <button (click)="(!edited)">
+                      {{ product.category.name }}
+                    </button>
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group row">
+              <label class="col-form-label" for="productImageId"
+                ><b>Product Image</b></label
+              >
+              <div class="col-md-offset-2">
+                <img
+                  class="img-responsive w-75 pr-5"
+                  [src]="selectedFile"
+                  alt="aaa"
+                />
+                <input
+                  class="pt-3"
+                  id="productImageId"
+                  (change)="onFileSelected($event)"
+                  [(ngModel)]="product.image"
+                  type="file"
+                  formControlName="image"
+                  [ngClass]="{
+                    'is-invalid':
+                      (productForm.get('image').touched ||
+                        productForm.get('image').dirty) &&
+                      !productForm.get('image').valid
+                  }"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group pl-5">
+          <div class="col-md-10">
+            <button class="btn-update" type="submit">
+              {{ typeAction | uppercase }}
+            </button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

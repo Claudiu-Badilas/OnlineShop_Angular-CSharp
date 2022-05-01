@@ -17,7 +17,6 @@ namespace Server.Controllers {
             _productService = productService;
         }
 
-        [Authorize]
         [HttpGet("")]
         public async Task<IActionResult> GetProducts() {
             var products = await _productRepo.GetProducts();

@@ -1,0 +1,18 @@
+.align-top {
+  margin-top: 100px;
+}
+
+.title {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-style: oblique;
+  font-size: 50px;
+}
+
+.product-title {
+  font-size: 18px;
+  color: #212f49;
+  &:hover {
+    color: #ff3c00;
+  }
+}

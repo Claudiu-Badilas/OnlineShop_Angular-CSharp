@@ -1,0 +1,72 @@
+<div class="container user-card">
+  <div class="container">
+    <div class="text-left">
+      <div class="d-flex justify-content-between align-items-center">
+        <h3 class="ml-3">Login into your account!</h3>
+        <button class="close-btn mr-2">X</button>
+      </div>
+      <p class="ml-3">
+        Don't have an account?
+        <a class="info-text"> Sign Up</a>
+      </p>
+    </div>
+
+    <hr class="mx-2" />
+    <div class="ml-3 mr-3">
+      <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm.value)">
+        <div class="mb-3">
+          <label><b>Email*</b></label>
+          <input
+            type="text"
+            class="form-control"
+            name="username"
+            placeholder="Username"
+            ngModel
+            #usernameInput="ngModel"
+            required
+            [ngClass]="{
+              'is-invalid': usernameInput.invalid && usernameInput.touched,
+              'is-valid':
+                !(usernameInput.invalid && usernameInput.touched) &&
+                usernameInput.valid
+            }"
+          />
+        </div>
+        <div class="mb-2">
+          <div class="d-flex justify-content-between align-items-center">
+            <label><b>Password*</b></label>
+            <p class="info-text">Forgot your password?</p>
+          </div>
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            placeholder="Password"
+            ngModel
+            #passwordInput="ngModel"
+            required
+            [ngClass]="{
+              'is-invalid': passwordInput.invalid && passwordInput.touched,
+              'is-valid':
+                !(passwordInput.invalid && passwordInput.touched) &&
+                passwordInput.valid
+            }"
+          />
+        </div>
+        <div class="mt-4">
+          <button
+            type="submit"
+            [disabled]="loginForm.invalid || showLoading"
+            name="button"
+            class="login-btn"
+          >
+            <i *ngIf="showLoading" class="fas fa-spinner fa-spin"></i
+            >&nbsp;&nbsp;
+            <span *ngIf="showLoading">LOADING...</span>
+            <span *ngIf="!showLoading">LOGIN</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
