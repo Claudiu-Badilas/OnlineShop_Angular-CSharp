@@ -25,13 +25,20 @@ namespace Server.Controllers {
             return Ok(products);
         }
 
-        [HttpDelete("delete-product/{id}")]
+        [HttpPost("product")]
+        public async Task<IActionResult> AddProduct([FromBody] Product product) {
+            await _productRepo.AddProduct(product.Name, product.Description, product.Image, product.Price, product.Category.Id);
+
+            return Ok("The product has been saved successfully.");
+        }
+
+        [HttpDelete("product/{id}")]
         public async Task<IActionResult> DeleteProduct([FromRoute] int id) {
             if (!await _productService.ExistsProduct(id))
-                return BadRequest("This product doesn't exists!");
+                return BadRequest("The product doesn't exists!");
 
             _productRepo.DeleteProduct(id);
-            return Ok("Product was deleted successfully!");
+            return Ok("The product has been deleted successfully.");
         }
     }
 }
