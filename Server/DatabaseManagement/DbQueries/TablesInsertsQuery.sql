@@ -1,5 +1,5 @@
-insert into users (username, email_address, password, full_name) values
- ('test_user', 'emai@asd.com', 'password', 'full_name');
+insert into users (username, email_address, password_hash, password_salt, full_name) values
+ ('test_user', 'emai@asd.com', 'password_hash', 'password_salt', 'full_name');
 
 insert into categories (name) values
  ('Oats'),
