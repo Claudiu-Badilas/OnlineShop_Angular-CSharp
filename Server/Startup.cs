@@ -20,11 +20,16 @@ namespace Server {
         public void ConfigureServices(IServiceCollection services) {
 
             services.AddControllers();
+
             services.AddSingleton(new MySQLDbConnection(_config.GetConnectionString("DefaultConnection")));
             services.AddSingleton<IProductRepository, ProductRepository>();
-            services.AddScoped<IProductService, ProductService>();
             services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<ICategoryRepository, CategoryRepository>();
+
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ITokenService, TokenService>();
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                .AddJwtBearer(options => {
                    options.TokenValidationParameters = new TokenValidationParameters {
