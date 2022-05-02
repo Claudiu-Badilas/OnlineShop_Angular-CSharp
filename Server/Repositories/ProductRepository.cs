@@ -38,9 +38,10 @@ namespace Server.Repositories.Interfaces {
         public async Task AddProduct(string name, string description, string image, double price, int categoryId) {
             using (var connection = _conn.Connect()) {
                 connection.Open();
-                var sql = @"INSERT INTO 
-                                products (description, image, name, price, category_id) values
-                                (@description, @image, @name, @price, @categoryId)";
+                var sql = @"
+                    INSERT INTO 
+                        products (description, image, name, price, category_id) values
+                        (@description, @image, @name, @price, @categoryId)";
 
                 await connection.ExecuteAsync(sql, new { description, image, name, price, categoryId });
             };
@@ -49,13 +50,14 @@ namespace Server.Repositories.Interfaces {
         public async Task UpdateProduct(int productId, string name, string description, string image, double price, int categoryId) {
             using (var connection = _conn.Connect()) {
                 connection.Open();
-                var sql = @"UPDATE products p
-                                SET p.description = @description,
-                                    p.image= @image, 
-                                    p.name = @name, 
-                                    p.price = @price, 
-                                    p.category_id = @categoryId
-                              WHERE p.id = @productId";
+                var sql = @"
+                    UPDATE products p
+                    SET p.description = @description,
+                        p.image= @image, 
+                        p.name = @name, 
+                        p.price = @price, 
+                        p.category_id = @categoryId
+                    WHERE p.id = @productId";
 
                 await connection.ExecuteAsync(sql, new { productId, description, image, name, price, categoryId });
             };

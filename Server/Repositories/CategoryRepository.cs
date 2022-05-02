@@ -24,16 +24,31 @@ namespace Server.Repositories {
             };
         }
 
-        public Task<Category> AddCategory(string name) {
-            throw new NotImplementedException();
+        public async Task AddCategory(string name) {
+            using (var connection = _conn.Connect()) {
+                connection.Open();
+                var sql = @"INSERT INTO categories (name) values (@name)";
+
+                await connection.ExecuteAsync(sql, new { name });
+            };
         }
 
-        public Task<Category> UpdateCategory(int categoryId, string name) {
-            throw new NotImplementedException();
+        public async Task UpdateCategory(int categoryId, string name) {
+            using (var connection = _conn.Connect()) {
+                connection.Open();
+                var sql = @"UPDATE categories c SET c.name = @name WHERE c.id = @categoryId";
+
+                await connection.ExecuteAsync(sql, new { categoryId, name });
+            };
         }
 
-        public void DeleteCategory(int categoryId) {
-            throw new NotImplementedException();
+        public async void DeleteCategory(int categoryId) {
+            using (var connection = _conn.Connect()) {
+                connection.Open();
+                var sql = @"DELETE FROM categories WHERE id = @categoryId";
+
+                await connection.ExecuteAsync(sql, new { categoryId });
+            };
         }
 
     }
