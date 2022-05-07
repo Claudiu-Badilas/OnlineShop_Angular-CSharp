@@ -18,8 +18,8 @@ namespace Server.Controllers {
 
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register([FromBody] RegisterDto registerDto) {
-
-            if (await GetUser(registerDto.Username) != null) return BadRequest("Username is taken");
+            var appUser = await _userRepo.GetUser(registerDto.Username);
+            if (appUser != null) return BadRequest("Username is taken");
 
             using var hmac = new HMACSHA512();
 
@@ -27,14 +27,30 @@ namespace Server.Controllers {
                 UserName = registerDto.Username,
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
                 PasswordSalt = hmac.Key,
-
+                EmailAddress = registerDto.EmailAddress,
+                FirstName = registerDto.FirstName,
+                LastName = registerDto.LastName,
+                JoinDate = registerDto.JoinDate,
+                LastLogin = registerDto.LastLogin,
+                IsActive = registerDto.IsActive,
+                RoleId = registerDto.Role.Id,
+                Role = new Role { Id = registerDto.Role.Id, Name = registerDto.Role.Name }
             };
 
-            await _userRepo.AddUser(user.UserName, user.PasswordHash, user.PasswordSalt);
+            await _userRepo.AddUser(user);
+
             var token = _tokenService.CreateToken(user);
+
             return new UserDto {
                 Username = user.UserName,
-                Token = token
+                Token = token,
+                EmailAddress = user.EmailAddress,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                JoinDate = user.JoinDate,
+                LastLogin = user.LastLogin,
+                IsActive = user.IsActive,
+                Role = new Role { Id = user.Role.Id, Name = registerDto.Role.Name }
             };
         }
 
@@ -54,7 +70,14 @@ namespace Server.Controllers {
 
             return new UserDto {
                 Username = user.UserName,
-                Token = _tokenService.CreateToken(user)
+                Token = _tokenService.CreateToken(user),
+                EmailAddress = user.EmailAddress,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                JoinDate = user.JoinDate,
+                LastLogin = user.LastLogin,
+                IsActive = user.IsActive,
+                Role = new Role { Id = user.Role.Id, Name = user.Role.Name }
             };
         }
 
