@@ -5,6 +5,5 @@ namespace Server.Services.Interfaces {
 
         public Task<UserDto> RegisterUser(RegisterDto registerDto);
         public Task<UserDto> LoginUser(LoginDto loginDto);
-
     }
 }

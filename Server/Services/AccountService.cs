@@ -50,8 +50,34 @@ namespace Server.Services {
             };
         }
 
-        public Task<UserDto> LoginUser(LoginDto loginDto) {
-            throw new NotImplementedException();
+        public async Task<UserDto> LoginUser(LoginDto loginDto) {
+            var appUser = await _userRepo.GetUser(loginDto.Username);
+
+            if (appUser == null) return null;
+            if (!IsValidPassword(loginDto, appUser)) return null;
+
+            return new UserDto {
+                Username = appUser.UserName,
+                Token = _tokenService.CreateToken(appUser),
+                EmailAddress = appUser.EmailAddress,
+                FirstName = appUser.FirstName,
+                LastName = appUser.LastName,
+                JoinDate = appUser.JoinDate,
+                LastLogin = appUser.LastLogin,
+                IsActive = appUser.IsActive,
+                Role = new Role { Id = appUser.Role.Id, Name = appUser.Role.Name }
+            };
+        }
+
+        private bool IsValidPassword(LoginDto loginDto, AppUser appUser) {
+            using var hmac = new HMACSHA512(appUser.PasswordSalt);
+
+            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
+
+            for (int i = 0; i < computedHash.Length; i++) {
+                if (computedHash[i] != appUser.PasswordHash[i]) return false;
+            }
+            return true;
         }
     }
 }
