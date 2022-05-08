@@ -3,7 +3,7 @@
 namespace Server.Services.Interfaces {
     public interface IAccountService {
 
-        public Task<UserDto> RegisterUser(RegisterDto registerDto);
-        public Task<UserDto> LoginUser(LoginDto loginDto);
+        public Task RegisterUser(RegisterDto registerDto);
+        public Task<AppUser> LoginUser(LoginDto loginDto);
     }
 }
