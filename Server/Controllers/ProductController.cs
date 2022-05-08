@@ -21,9 +21,18 @@ namespace Server.Controllers {
         public async Task<IActionResult> GetProducts() {
             var products = await _productRepo.GetProducts();
 
-            if (products.Count() == 0) return NoContent();
+            if (products.Count() == 0) return BadRequest();
 
             return Ok(products);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProductById([FromRoute] int id) {
+            var product = await _productRepo.GetProductById(id);
+
+            if (product == null) return BadRequest("The product doesn't exists!");
+
+            return Ok(product);
         }
 
         [HttpPost("product")]

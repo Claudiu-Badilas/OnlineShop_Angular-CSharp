@@ -14,6 +14,6 @@ export class Product {
     this.description = res.description;
     this.price = res.price;
     this.image = res.image;
-    this.category = res.category;
+    this.category = new Category(res.category);
   }
 }

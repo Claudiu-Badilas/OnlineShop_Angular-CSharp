@@ -35,6 +35,29 @@ namespace Server.Repositories.Interfaces {
             };
         }
 
+        public async Task<Product> GetProductById(int id) {
+            using (var connection = _conn.Connect()) {
+                connection.Open();
+                var sql = @"
+                    SELECT DISTINCT
+                       p.id as Id, 
+                       p.name as Name,
+                       p.description as Description,
+                       p.image as Image,
+                       p.price as Price,
+                       p.category_id as split,
+                       c.id as Id, 
+                       c.name as Name
+                    FROM products p
+                    JOIN categories c ON p.category_id = c.id";
+
+                return (await connection.QueryAsync<Product, Category, Product>(sql, (prod, cat) => {
+                    prod.Category = cat;
+                    return prod;
+                }, splitOn: "split")).ToList().Find(p => p.Id == id);
+            };
+        }
+
         public async Task AddProduct(string name, string description, string image, double price, int categoryId) {
             using (var connection = _conn.Connect()) {
                 connection.Open();
@@ -46,7 +69,7 @@ namespace Server.Repositories.Interfaces {
                 await connection.ExecuteAsync(sql, new { description, image, name, price, categoryId });
             };
         }
-        
+
         public async Task UpdateProduct(int productId, string name, string description, string image, double price, int categoryId) {
             using (var connection = _conn.Connect()) {
                 connection.Open();
