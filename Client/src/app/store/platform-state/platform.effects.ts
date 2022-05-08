@@ -54,7 +54,7 @@ export class PlatformEffects {
           map((user) => {
             this.store.dispatch(
               PlatformActions.isAdminUser({
-                isAdminUser: user.role === Role.ADMIN,
+                isAdminUser: user.role.name === Role.ADMIN,
               })
             );
 

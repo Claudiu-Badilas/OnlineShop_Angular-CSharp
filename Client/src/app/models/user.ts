@@ -1,3 +1,5 @@
+import { Role } from '../shared/enum/role.enum';
+
 export class User {
   public id: string;
   public firstName: string;
@@ -5,27 +7,19 @@ export class User {
   public username: string;
   public email: string;
   public lastLoginDate: any;
-  public lastLoginDateDisplay: any;
   public joinDate: any;
-  public profileImageUrl: string;
   public active: boolean;
-  public notLocked: boolean;
-  public role: string;
-  public authorities: string[];
+  public role: { id: number; name: Role };
 
-  constructor() {
-    this.id = '';
-    this.firstName = '';
-    this.lastName = '';
-    this.username = '';
-    this.email = '';
-    this.lastLoginDate = null;
-    this.lastLoginDateDisplay = null;
-    this.joinDate = null;
-    this.profileImageUrl = '';
-    this.active = false;
-    this.notLocked = false;
-    this.role = '';
-    this.authorities = [];
+  constructor(res?: any) {
+    this.id = res.id;
+    this.firstName = res.firstName;
+    this.lastName = res.lastName;
+    this.username = res.username;
+    this.email = res.emailAddress;
+    this.lastLoginDate = res.lastLogin;
+    this.joinDate = res.joinDate;
+    this.active = res.isActive;
+    this.role = res.role;
   }
 }
