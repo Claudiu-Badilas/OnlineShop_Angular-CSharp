@@ -17,13 +17,13 @@ export class AuthenticationService {
   constructor(private http: HttpClient) {}
 
   public login(user: User): Observable<HttpResponse<User>> {
-    return this.http.post<User>(`server/api/user/login`, user, {
+    return this.http.post<User>(`server/api/account/login`, user, {
       observe: 'response',
     });
   }
 
   public register(user: User): Observable<User> {
-    return this.http.post<User>(`server/api/user/register`, user);
+    return this.http.post<User>(`server/api/account/register`, user);
   }
 
   public logOut(): void {
@@ -40,8 +40,7 @@ export class AuthenticationService {
   }
 
   public addUserToLocalCache(user: User): void {
-    console.log('addUserToLocalCache');
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('user', JSON.stringify(new User(user)));
   }
 
   public getUserFromLocalCache(): Observable<User> {

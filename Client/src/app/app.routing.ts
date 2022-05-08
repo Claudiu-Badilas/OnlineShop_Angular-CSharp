@@ -46,8 +46,8 @@ const routes: Routes = [
       },
     ],
   },
-  { path: '', redirectTo: 'products/category/Ovaz', pathMatch: 'full' },
-  { path: '**', redirectTo: 'products/category/Ovaz', pathMatch: 'full' },
+  { path: '', redirectTo: 'products/category/Oats', pathMatch: 'full' },
+  { path: '**', redirectTo: 'products/category/Oats', pathMatch: 'full' },
 ];
 
 @NgModule({

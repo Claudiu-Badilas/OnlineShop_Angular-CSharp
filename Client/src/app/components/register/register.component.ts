@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authenticationService.isUserLoggedIn()) {
-      this.router.navigateByUrl('products/category/Ovaz');
+      this.router.navigateByUrl('products/category/Oats');
     }
   }
 

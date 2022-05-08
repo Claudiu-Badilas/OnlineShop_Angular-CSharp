@@ -3,6 +3,6 @@
 namespace Server.Repositories.Interfaces {
     public interface IUserRepository {
         Task<AppUser> GetUser(string username);
-        Task AddUser(string username, byte[] passwordhash, byte[] passwordSalt);
+        Task AddUser(AppUser user);
     }
 }

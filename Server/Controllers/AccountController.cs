@@ -2,6 +2,8 @@
 using Server.Configuration.Interfaces;
 using Server.Models;
 using Server.Repositories.Interfaces;
+using Server.Services.Interfaces;
+using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -9,57 +11,33 @@ namespace Server.Controllers {
 
     [Route("api/account")]
     public class AccountController : BaseController {
+        private readonly IAccountService _accService;
         private readonly IUserRepository _userRepo;
         private readonly ITokenService _tokenService;
-        public AccountController(IUserRepository userRepo, ITokenService tokenService) {
-            _tokenService = tokenService;
+
+        public AccountController(IAccountService accService, IUserRepository userRepo, ITokenService tokenService) {
+            _accService = accService;
             _userRepo = userRepo;
+            _tokenService = tokenService;
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<UserDto>> Register([FromBody] RegisterDto registerDto) {
+        public async Task<ActionResult> RegisterUser([FromBody] RegisterDto registerDto) {
 
-            if (await GetUser(registerDto.Username) != null) return BadRequest("Username is taken");
+            if ((await _userRepo.GetUser(registerDto.Username)) != null) return BadRequest("Username was taken");
 
-            using var hmac = new HMACSHA512();
+            await _accService.RegisterUser(registerDto);
 
-            AppUser user = new AppUser {
-                UserName = registerDto.Username,
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-                PasswordSalt = hmac.Key,
-
-            };
-
-            await _userRepo.AddUser(user.UserName, user.PasswordHash, user.PasswordSalt);
-            var token = _tokenService.CreateToken(user);
-            return new UserDto {
-                Username = user.UserName,
-                Token = token
-            };
+            return Ok("User successfully saved");
         }
 
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login([FromBody] LoginDto loginDto) {
-            var user = await GetUser(loginDto.Username);
+            var user = await _accService.LoginUser(loginDto);
 
-            if (user == null) return Unauthorized("Invalid username");
+            if (user == null) return Unauthorized("Invalid username or password");
 
-            using var hmac = new HMACSHA512(user.PasswordSalt);
-
-            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
-
-            for (int i = 0; i < computedHash.Length; i++) {
-                if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password");
-            }
-
-            return new UserDto {
-                Username = user.UserName,
-                Token = _tokenService.CreateToken(user)
-            };
-        }
-
-        private async Task<AppUser> GetUser(string username) {
-            return await _userRepo.GetUser(username);
+            return Ok(new UserDto(user, _tokenService.CreateToken(user)));
         }
     }
 }
