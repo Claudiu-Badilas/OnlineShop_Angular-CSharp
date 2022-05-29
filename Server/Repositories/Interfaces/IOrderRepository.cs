@@ -6,6 +6,6 @@ namespace Server.Repositories.Interfaces {
 
         Task<IEnumerable<Order>> GetOrdersByUserId(int userId);
         Task AddOrder(OrderDto order);
-        Task<Order> GetOrder(long orderNumber);
+        Task<Order> GetOrder(string orderNumber);
     }
 }

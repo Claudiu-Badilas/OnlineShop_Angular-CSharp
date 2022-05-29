@@ -212,11 +212,11 @@
         You don't have any product in cart!
       </div>
 
-      <div class="text-center pb-2">
+      <div *ngIf="cartItems$ | async as cartItems" class="text-center pb-2">
         <button
           class="btn-place-order"
-          [disabled]="!((cartItems$ | async).length > 0)"
-          (click)="onSaveOrder()"
+          [disabled]="!(cartItems.length > 0)"
+          (click)="onSaveOrder(cartItems)"
         >
           PLACE ORDER:
           {{

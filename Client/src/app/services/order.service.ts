@@ -27,9 +27,14 @@ export class OrderService {
       );
   }
 
-  saveOrder(order: Order) {
+  saveOrder(order: any): Observable<Order> {
     const body = JSON.stringify(order);
-    return this.httpClient.post(`/server/api/order/save`, order, httpOption);
+    return this.httpClient
+      .post<Order>(`/server/api/orders/order`, order, httpOption)
+      .pipe(
+        first(),
+        map((result) => new Order(result))
+      );
   }
 
   deleteOrder(id: number) {

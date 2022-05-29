@@ -25,7 +25,8 @@ namespace Server.Repositories {
                     FROM orders  o
                     JOIN users  u  
                     ON o.user_id = u.id
-                    WHERE u.id = @userId";
+                    WHERE u.id = @userId 
+                    ORDER BY o.date DESC";
 
                 return await connection.QueryAsync<Order>(sql, new { userId });
             };
@@ -42,7 +43,7 @@ namespace Server.Repositories {
             };
         }
 
-        public async Task<Order> GetOrder(long orderNumber) {
+        public async Task<Order> GetOrder(string orderNumber) {
             using (var connection = _conn.Connect()) {
                 connection.Open();
                 var sql = @"
