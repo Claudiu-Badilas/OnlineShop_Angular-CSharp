@@ -26,6 +26,7 @@ namespace Server.Controllers {
             return Ok(categories);
         }
 
+        [Authorize]
         [HttpPost("category")]
         public async Task<IActionResult> AddCategory([FromBody] Category category) {
             await _categoryRepo.AddCategory(category.Name);
@@ -33,6 +34,7 @@ namespace Server.Controllers {
             return Ok("The category has been saved successfully.");
         }
 
+        [Authorize]
         [HttpPut("category")]
         public async Task<IActionResult> DeleteCategory([FromBody] Category category) {
             if (!await _categoryService.ExistsCategory(category.Id))
@@ -42,6 +44,7 @@ namespace Server.Controllers {
             return Ok("The category has been updated successfully.");
         }
 
+        [Authorize]
         [HttpDelete("category/{id}")]
         public async Task<IActionResult> DeleteCategory([FromRoute] int id) {
             if (!await _categoryService.ExistsCategory(id))
