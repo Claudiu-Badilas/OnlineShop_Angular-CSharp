@@ -12,7 +12,6 @@ import { AppState } from 'src/app/store/app.state';
 import { Product } from 'src/app/models/product';
 import * as fromPlatform from '../../store/platform-state/platform.reducer';
 import * as fromCart from '../../store/shopping-cart-state/shopping-cart.reducer';
-import * as PlatformActions from '../../store/platform-state/platform.actions';
 import * as CartActions from './../../store/shopping-cart-state/shopping-cart.actions';
 
 enum OrderStatus {
@@ -41,7 +40,6 @@ export class CartDetailsComponent implements OnInit {
   user: User;
 
   constructor(
-    private orderService: OrderService,
     private formBuilder: FormBuilder,
     private store: Store<AppState>
   ) {}
@@ -76,7 +74,9 @@ export class CartDetailsComponent implements OnInit {
     this.orderForm.value.status = OrderStatus.PENDING;
     this.orderForm.value.userId = this.user.id;
 
-    this.orderService.saveOrder(this.orderForm.value);
+    this.store.dispatch(
+      CartActions.placeOrder({ orderForm: this.orderForm.value })
+    );
   }
 
   onIncrement(cartItem: CartItem) {

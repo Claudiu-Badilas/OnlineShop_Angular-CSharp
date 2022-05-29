@@ -32,3 +32,8 @@ export const changeComputeCartTotals = createAction(
 );
 
 export const removeAllCartItems = createAction('[Cart] Remove All Cart Items');
+
+export const placeOrder = createAction(
+  '[Cart] Place Order',
+  props<{ orderForm: any }>()
+);

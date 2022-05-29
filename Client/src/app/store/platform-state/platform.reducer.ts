@@ -99,6 +99,10 @@ const userReducer = createReducer(
     ...state,
     orders: action.orders,
   })),
+  on(PlatformActions.loadSavedOrder, (state, action) => ({
+    ...state,
+    orders: [...state.orders, action.order],
+  })),
 
   on(PlatformActions.setSpinnerLoading, (state, action) => ({
     ...state,

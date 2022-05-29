@@ -71,3 +71,8 @@ export const loadOrders = createAction(
   '[Orders] Load Orders',
   props<{ orders: Order[] }>()
 );
+
+export const loadSavedOrder = createAction(
+  '[Orders] Load Saved Order',
+  props<{ order: Order }>()
+);

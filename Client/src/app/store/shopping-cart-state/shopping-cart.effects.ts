@@ -1,16 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { concatMap, map, withLatestFrom } from 'rxjs/operators';
+import { concatMap, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import * as fromCart from './shopping-cart.reducer';
 import * as fromCartActions from './shopping-cart.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.state';
 import { CartItem } from 'src/app/models/cart-item';
 import { EMPTY } from 'rxjs';
+import { OrderService } from 'src/app/services/order.service';
+import * as PlatformActions from '../../store/platform-state/platform.actions';
 
 @Injectable()
 export class ShoppingCartEffects {
-  constructor(private actions$: Actions, private store: Store<AppState>) {}
+  constructor(
+    private actions$: Actions,
+    private store: Store<AppState>,
+    private orderService: OrderService
+  ) {}
 
   addProductToCart$ = createEffect(() => {
     return this.actions$.pipe(
@@ -97,4 +103,12 @@ export class ShoppingCartEffects {
       })
     );
   }
+
+  placeOrder$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(...[fromCartActions.placeOrder]),
+      switchMap((action) => this.orderService.saveOrder(action.orderForm)),
+      map((order) => PlatformActions.loadSavedOrder({ order }))
+    );
+  });
 }
