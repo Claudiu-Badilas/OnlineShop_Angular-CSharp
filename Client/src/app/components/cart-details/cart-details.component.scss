@@ -20,10 +20,10 @@
 
 .info-card {
   width: 670px;
-  height: 500px;
+  height: 480px;
   border-radius: 15px;
   background-color: white;
-  box-shadow: 1px 1px 1px 1px 1px;
+  box-shadow: 0 0 15px 2px #f2e8df !important;
   border: 1px solid #ffe1d9;
 
   input {
@@ -50,7 +50,7 @@
   min-height: 300px !important;
   border-radius: 15px;
   background-color: white;
-  box-shadow: 1px 1px 1px 1px 1px;
+  box-shadow: 0 0 15px 2px #f2e8df !important;
   border: 1px solid #ffe1d9;
 
   .title-cart {

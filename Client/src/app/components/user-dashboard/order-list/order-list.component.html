@@ -13,7 +13,7 @@
 
       <tr *ngFor="let order of orders$ | async">
         <td class="pb-1">
-          <div id="order-number">nr. {{ order.id }}</div>
+          <div id="order-number">nr. {{ order.orderNumber }}</div>
         </td>
         <td>
           <div>
@@ -26,10 +26,7 @@
           </div>
         </td>
         <td>
-          <div>
-            {{ order.totalPrice.toFixed(2) }} RON for
-            {{ order.products.length }} products
-          </div>
+          <div>{{ order.totalPrice.toFixed(2) }} RON</div>
         </td>
         <td>
           <div id="order-number">See</div>
