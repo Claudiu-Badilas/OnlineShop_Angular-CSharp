@@ -20,16 +20,21 @@ export class OrderService {
 
   getOrdersByUserId(id: number): Observable<Order[]> {
     return this.httpClient
-      .get<Order[]>(`/server/api/order/user-orders/${id}`)
+      .get<Order[]>(`/server/api/orders/user-orders/${id}`)
       .pipe(
         first(),
         map((results) => results.map((result: Order) => new Order(result)))
       );
   }
 
-  saveOrder(order: Order) {
+  saveOrder(order: any): Observable<Order> {
     const body = JSON.stringify(order);
-    return this.httpClient.post(`/server/api/order/save`, order, httpOption);
+    return this.httpClient
+      .post<Order>(`/server/api/orders/order`, order, httpOption)
+      .pipe(
+        first(),
+        map((result) => new Order(result))
+      );
   }
 
   deleteOrder(id: number) {

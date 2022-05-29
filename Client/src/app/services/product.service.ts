@@ -22,11 +22,7 @@ export class ProductService {
   }
 
   getProductById(id: number): Observable<Product> {
-    return this.http.get<Product>(`/server/api/product/${id}`);
-  }
-
-  getProductsByCategory(id: number) {
-    return this.http.get<Product[]>(`/server/api/product/category/${id}`);
+    return this.http.get<Product>(`/server/api/products/${id}`);
   }
 
   saveProduct(product: Product) {
