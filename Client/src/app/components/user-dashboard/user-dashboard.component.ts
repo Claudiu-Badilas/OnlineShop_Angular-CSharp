@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as NavigationActions from '../../store/navigation-state/navigation.actions';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/app.state';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AppState } from '@src/store/app.state';
+import { AuthenticationService } from '@src/services/authentication.service';
 
 @Component({
   selector: 'app-user-dashboard',

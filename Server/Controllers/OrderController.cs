@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Server.Models.OderDTOs;
 using Server.Repositories.Interfaces;
 
 namespace Server.Controllers {
+    [Authorize]
     [Route("api/orders")]
     public class OrderController : BaseController {
 
@@ -13,7 +15,6 @@ namespace Server.Controllers {
             _orderRepo = orderRepo;
             _userRepo = userRepo;
         }
-
 
         [HttpGet("user-orders/{id}")]
         public async Task<IActionResult> GetOrdersByUserId([FromRoute] int id) {

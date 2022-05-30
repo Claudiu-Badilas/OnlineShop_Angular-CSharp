@@ -2,11 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
-import { User } from 'src/app/models/user';
-import { HeaderType } from 'src/app/shared/enum/header-type.enum';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { NotificationService } from 'src/app/services/notification.service';
-import { NotificationType } from 'src/app/shared/enum/notification-type.enum';
+import { User } from '@src/models/user';
+import { HeaderType } from '@src/shared/enum/header-type.enum';
+import { AuthenticationService } from '@src/services/authentication.service';
+import { NotificationService } from '@src/services/notification.service';
+import { NotificationType } from '@src/shared/enum/notification-type.enum';
 
 @Component({
   selector: 'app-log-in',

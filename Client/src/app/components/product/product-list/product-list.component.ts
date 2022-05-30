@@ -5,10 +5,10 @@ import { Product } from '../../../models/product';
 import * as fromPlatform from '../../../store/platform-state/platform.reducer';
 import * as PlatformActions from '../../../store/platform-state/platform.actions';
 import * as NavigationActions from '../../../store/navigation-state/navigation.actions';
-import { AppState } from 'src/app/store/app.state';
+import { AppState } from '@src/store/app.state';
 import { ProductTypeAction } from '../utils/product-type-action.util';
 import * as CartActions from '../../../store/shopping-cart-state/shopping-cart.actions';
-import { Category } from 'src/app/models/category';
+import { Category } from '@src/models/category';
 
 @Component({
   selector: 'app-product-list',

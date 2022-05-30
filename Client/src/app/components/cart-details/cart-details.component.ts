@@ -1,4 +1,4 @@
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AuthenticationService } from '@src/services/authentication.service';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -8,8 +8,8 @@ import { CartItem } from '../../models/cart-item';
 import { OrderService } from '../../services/order.service';
 import { User } from '../../models/user';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/app.state';
-import { Product } from 'src/app/models/product';
+import { AppState } from '@src/store/app.state';
+import { Product } from '@src/models/product';
 import * as fromPlatform from '../../store/platform-state/platform.reducer';
 import * as fromCart from '../../store/shopping-cart-state/shopping-cart.reducer';
 import * as CartActions from './../../store/shopping-cart-state/shopping-cart.actions';

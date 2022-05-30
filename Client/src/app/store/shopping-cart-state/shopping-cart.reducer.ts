@@ -5,7 +5,7 @@ import {
   createSelector,
   on,
 } from '@ngrx/store';
-import { CartItem } from 'src/app/models/cart-item';
+import { CartItem } from '@src/models/cart-item';
 import * as CartActions from './shopping-cart.actions';
 
 export interface CartState {

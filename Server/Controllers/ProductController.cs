@@ -35,6 +35,7 @@ namespace Server.Controllers {
             return Ok(product);
         }
 
+        [Authorize]
         [HttpPost("product")]
         public async Task<IActionResult> AddProduct([FromBody] Product product) {
             await _productRepo.AddProduct(product.Name, product.Description, product.Image, product.Price, product.Category.Id);
@@ -42,6 +43,7 @@ namespace Server.Controllers {
             return Ok("The product has been saved successfully.");
         }
 
+        [Authorize]
         [HttpPut("product")]
         public async Task<IActionResult> DeleteProduct([FromBody] Product product) {
             if (!await _productService.ExistsProduct(product.Id))
@@ -51,6 +53,7 @@ namespace Server.Controllers {
             return Ok("The product has been updated successfully.");
         }
 
+        [Authorize]
         [HttpDelete("product/{id}")]
         public async Task<IActionResult> DeleteProduct([FromRoute] int id) {
             if (!await _productService.ExistsProduct(id))

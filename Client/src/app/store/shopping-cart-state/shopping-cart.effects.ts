@@ -5,10 +5,10 @@ import * as fromCart from './shopping-cart.reducer';
 import * as fromCartActions from './shopping-cart.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.state';
-import { CartItem } from 'src/app/models/cart-item';
 import { EMPTY } from 'rxjs';
-import { OrderService } from 'src/app/services/order.service';
+import { OrderService } from '@src/services/order.service';
 import * as PlatformActions from '../../store/platform-state/platform.actions';
+import { CartItem } from '@src/models/cart-item';
 
 @Injectable()
 export class ShoppingCartEffects {

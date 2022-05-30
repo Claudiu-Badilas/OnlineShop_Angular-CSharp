@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Product } from 'src/app/models/product';
-import { AppState } from 'src/app/store/app.state';
+import { Product } from '@src/models/product';
+import { AppState } from '@src/store/app.state';
 import * as fromPlatform from '../../../store/platform-state/platform.reducer';
 import * as CartActions from '../../../store/shopping-cart-state/shopping-cart.actions';
 import * as NavigationActions from '../../../store/navigation-state/navigation.actions';

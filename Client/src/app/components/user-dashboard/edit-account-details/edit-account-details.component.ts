@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { skipWhile } from 'rxjs/operators';
-import { User } from 'src/app/models/user';
-import { UserService } from 'src/app/services/user.service';
-import { AppState } from 'src/app/store/app.state';
+import { User } from '@src/models/user';
+import { UserService } from '@src/services/user.service';
+import { AppState } from '@src/store/app.state';
 import * as fromPlatform from '../../../store/platform-state/platform.reducer';
 
 @Component({

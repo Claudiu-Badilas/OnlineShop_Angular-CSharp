@@ -4,9 +4,9 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { Category } from '../../../models/category';
-import { Product } from 'src/app/models/product';
+import { Product } from '@src/models/product';
 
-import { AppState } from 'src/app/store/app.state';
+import { AppState } from '@src/store/app.state';
 import * as fromPlatform from '../../../store/platform-state/platform.reducer';
 import * as PlatformActions from '../../../store/platform-state/platform.actions';
 
