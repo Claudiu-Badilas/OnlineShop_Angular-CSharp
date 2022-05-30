@@ -1,4 +1,4 @@
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AuthenticationService } from '@src/services/authentication.service';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
@@ -14,18 +14,18 @@ import {
 } from 'rxjs/operators';
 import { combineLatest, EMPTY, of } from 'rxjs';
 import { ProductService } from '../../services/product.service';
-import { NotificationService } from '../../services/notification.service';
+import { NotificationService } from '@src/services/notification.service';
 import { AppState } from '../app.state';
 import { select, Store } from '@ngrx/store';
 import * as PlatformActions from './platform.actions';
 import { CategoryService } from '../../services/category.service';
 import * as fromState from '../app.state';
 import * as fromPlatform from '../platform-state/platform.reducer';
-import { NotificationType } from 'src/app/shared/enum/notification-type.enum';
-import { ProductTypeAction } from 'src/app/components/product/utils/product-type-action.util';
-import { Role } from 'src/app/shared/enum/role.enum';
-import { OrderService } from 'src/app/services/order.service';
-import { Product } from 'src/app/models/product';
+import { NotificationType } from '@src/shared/enum/notification-type.enum';
+import { ProductTypeAction } from '@src/components/product/utils/product-type-action.util';
+import { Role } from '@src/shared/enum/role.enum';
+import { OrderService } from '@src/services/order.service';
+import { Product } from '@src/models/product';
 
 const ERROR_MSG = 'Some problems occurred, please refresh the page!';
 @Injectable()

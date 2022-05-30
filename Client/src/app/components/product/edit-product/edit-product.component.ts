@@ -1,5 +1,3 @@
-import { Product } from './../../../models/product';
-import { ProductTypeAction } from './../utils/product-type-action.util';
 import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
@@ -8,17 +6,18 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
-import { AppState } from 'src/app/store/app.state';
-import * as fromPlatform from '../../../store/platform-state/platform.reducer';
-import * as PlatformActions from '../../../store/platform-state/platform.actions';
+import { AppState } from '@src/store/app.state';
+import * as fromPlatform from '@src/store/platform-state/platform.reducer';
+import * as PlatformActions from '@src/store/platform-state/platform.actions';
 
-import { Category } from 'src/app/models/category';
-import { NotificationService } from 'src/app/services/notification.service';
-import { NotificationType } from 'src/app/shared/enum/notification-type.enum';
-import { ConfirmService } from 'src/app/services/confirm.service';
+import { Category } from '@src/models/category';
+import { NotificationService } from '@src/services/notification.service';
+import { NotificationType } from '@src/shared/enum/notification-type.enum';
+import { ConfirmService } from '@src/services/confirm.service';
+import { Product } from '@src/models/product';
+import { ProductTypeAction } from '../utils/product-type-action.util';
 
 @Component({
   selector: 'app-edit-product',

@@ -1,14 +1,14 @@
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AuthenticationService } from '@src/services/authentication.service';
 import { Component, OnChanges, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/app.state';
+import { AppState } from '@src/store/app.state';
 import * as fromPlatform from '../../store/platform-state/platform.reducer';
 import * as PlatformActions from '../../store/platform-state/platform.actions';
 import {
   ProductTypeAction,
   UserAuthenticationAction,
 } from '../product/utils/product-type-action.util';
-import { Product } from 'src/app/models/product';
+import { Product } from '@src/models/product';
 import * as NavigationActions from '../../store/navigation-state/navigation.actions';
 import * as fromCart from '../../store/shopping-cart-state/shopping-cart.reducer';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';

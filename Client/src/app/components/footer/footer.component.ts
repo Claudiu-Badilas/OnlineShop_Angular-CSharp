@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/app.state';
+import { AppState } from '@src/store/app.state';
 import * as fromPlatform from '../../store/platform-state/platform.reducer';
 import * as NavigationActions from '../../store/navigation-state/navigation.actions';
 @Component({

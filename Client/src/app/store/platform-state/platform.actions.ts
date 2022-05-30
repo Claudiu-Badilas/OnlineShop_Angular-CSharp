@@ -2,8 +2,8 @@ import { User } from '../../models/user';
 import { createAction, props } from '@ngrx/store';
 import { Category } from '../../models/category';
 import { Product } from '../../models/product';
-import { ProductTypeAction } from 'src/app/components/product/utils/product-type-action.util';
-import { Order } from 'src/app/models/order';
+import { ProductTypeAction } from '@src/components/product/utils/product-type-action.util';
+import { Order } from '@src/models/order';
 
 export const loadUser = createAction(
   '[Platform] Load User',

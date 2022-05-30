@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Product } from 'src/app/models/product';
-import { ConfirmService } from 'src/app/services/confirm.service';
-import { Role } from 'src/app/shared/enum/role.enum';
+import { Product } from '@src/models/product';
+import { ConfirmService } from '@src/services/confirm.service';
+import { Role } from '@src/shared/enum/role.enum';
 
 @Component({
   selector: 'app-product',

@@ -5,8 +5,8 @@ import {
   createSelector,
   on,
 } from '@ngrx/store';
-import { Order } from 'src/app/models/order';
-import { User } from 'src/app/models/user';
+import { Order } from '@src/models/order';
+import { User } from '@src/models/user';
 import { ProductTypeAction } from '../../components/product/utils/product-type-action.util';
 import { Category } from '../../models/category';
 import { Product } from '../../models/product';
