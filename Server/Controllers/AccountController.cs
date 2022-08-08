@@ -23,12 +23,15 @@ namespace Server.Controllers {
 
         [HttpPost("register")]
         public async Task<ActionResult> RegisterUser([FromBody] RegisterDto registerDto) {
+            try {
+                if ((await _userRepo.GetUser(registerDto.Username)) != null) return BadRequest("Username was taken");
 
-            if ((await _userRepo.GetUser(registerDto.Username)) != null) return BadRequest("Username was taken");
-
-            await _accService.RegisterUser(registerDto);
-
-            return Ok("User successfully saved");
+                await _accService.RegisterUser(registerDto);
+                return Ok("User successfully saved");
+            } catch (Exception ex) {
+                BadRequest(ex.Message);
+                return null;
+            }
         }
 
         [HttpPost("login")]

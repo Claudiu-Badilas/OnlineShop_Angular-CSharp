@@ -20,14 +20,13 @@ namespace Server.Services {
                 UserName = registerDto.Username,
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
                 PasswordSalt = hmac.Key,
-                EmailAddress = registerDto.EmailAddress,
+                EmailAddress = "test@test.com",
                 FirstName = registerDto.FirstName,
                 LastName = registerDto.LastName,
-                JoinDate = registerDto.JoinDate,
-                LastLogin = registerDto.LastLogin,
-                IsActive = registerDto.IsActive,
-                RoleId = registerDto.Role.Id,
-                Role = new Role { Id = registerDto.Role.Id, Name = registerDto.Role.Name }
+                JoinDate = DateTime.UtcNow,
+                LastLogin = DateTime.UtcNow,
+                IsActive = true,
+                RoleId = 1
             });
         }
 
