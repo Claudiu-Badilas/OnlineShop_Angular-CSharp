@@ -22,22 +22,26 @@ namespace Server.Controllers {
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult> RegisterUser([FromBody] RegisterDto registerDto) {
-
-            if ((await _userRepo.GetUser(registerDto.Username)) != null) return BadRequest("Username was taken");
-
+        public async Task<ActionResult> RegisterUser([FromBody] RegisterUserRequest registerDto) {
+            var data = await _userRepo.IsExistingUser(registerDto.Email);
+            if (data) {
+                return BadRequest("Email is already used!");
+            }
             await _accService.RegisterUser(registerDto);
-
             return Ok("User successfully saved");
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<UserDto>> Login([FromBody] LoginDto loginDto) {
+        public async Task<ActionResult> Login([FromBody] LoginUserRequest loginDto) {
             var user = await _accService.LoginUser(loginDto);
+            if (user == null) {
+                return Unauthorized("Invalid Email or Password");
+            }
 
-            if (user == null) return Unauthorized("Invalid username or password");
-
-            return Ok(new UserDto(user, _tokenService.CreateToken(user)));
+            return Ok( new {
+                user = user,
+                token = _tokenService.CreateToken(user)
+            });
         }
     }
 }

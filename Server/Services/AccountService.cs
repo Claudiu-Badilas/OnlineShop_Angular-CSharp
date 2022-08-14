@@ -13,41 +13,39 @@ namespace Server.Services {
             _userRepo = userRepo;
         }
 
-        public async Task RegisterUser(RegisterDto registerDto) {
+        public async Task RegisterUser(RegisterUserRequest registerDto) {
             using var hmac = new HMACSHA512();
 
             await _userRepo.AddUser(new AppUser {
-                UserName = registerDto.Username,
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
                 PasswordSalt = hmac.Key,
-                EmailAddress = registerDto.EmailAddress,
-                FirstName = registerDto.FirstName,
-                LastName = registerDto.LastName,
-                JoinDate = registerDto.JoinDate,
-                LastLogin = registerDto.LastLogin,
-                IsActive = registerDto.IsActive,
-                RoleId = registerDto.Role.Id,
-                Role = new Role { Id = registerDto.Role.Id, Name = registerDto.Role.Name }
+                Email = registerDto.Email,
+                JoinDate = DateTime.UtcNow,
+                LastLogin = DateTime.UtcNow,
+                IsActive = true,
+                RoleId = (int)Role.USER
             });
         }
 
-        public async Task<AppUser> LoginUser(LoginDto loginDto) {
-            var appUser = await _userRepo.GetUser(loginDto.Username);
+        public async Task<AppUser> LoginUser(LoginUserRequest loginDto) {
+            var isExistingUser = await _userRepo.IsExistingUser(loginDto.Email);
+            if (!isExistingUser) return null;
 
-            if (appUser == null) return null;
+            var user = await _userRepo.GetUserByEmail(loginDto.Email);
+            var isPasswordValid = IsPasswordValid(loginDto, user);
+            if (!isPasswordValid) return null;
 
-            if (!IsValidPassword(loginDto, appUser)) return null;
-
-            return appUser;
+            return user;
         }
 
-        private bool IsValidPassword(LoginDto loginDto, AppUser appUser) {
+        private bool IsPasswordValid(LoginUserRequest loginDto, AppUser appUser) {
             using var hmac = new HMACSHA512(appUser.PasswordSalt);
-
             var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
 
             for (int i = 0; i < computedHash.Length; i++) {
-                if (computedHash[i] != appUser.PasswordHash[i]) return false;
+                if (computedHash[i] != appUser.PasswordHash[i]) {
+                    return false;
+                }
             }
             return true;
         }
