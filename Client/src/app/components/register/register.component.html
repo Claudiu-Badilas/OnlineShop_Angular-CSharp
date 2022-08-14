@@ -19,57 +19,6 @@
           <input
             type="text"
             class="form-control"
-            name="firstName"
-            placeholder="First name"
-            required
-            ngModel
-            #firstNameInput="ngModel"
-            [ngClass]="{
-              'is-invalid': firstNameInput.invalid && firstNameInput.touched,
-              'is-valid':
-                !(firstNameInput.invalid && firstNameInput.touched) &&
-                firstNameInput.valid
-            }"
-          />
-        </div>
-        <div class="mb-3">
-          <input
-            type="text"
-            class="form-control"
-            name="lastName"
-            placeholder="Last name"
-            required
-            ngModel
-            #lastNameInput="ngModel"
-            [ngClass]="{
-              'is-invalid': lastNameInput.invalid && lastNameInput.touched,
-              'is-valid':
-                !(lastNameInput.invalid && lastNameInput.touched) &&
-                lastNameInput.valid
-            }"
-          />
-        </div>
-        <div class="mb-3">
-          <input
-            type="text"
-            class="form-control"
-            name="username"
-            placeholder="Username"
-            required
-            ngModel
-            #usernameInput="ngModel"
-            [ngClass]="{
-              'is-invalid': usernameInput.invalid && usernameInput.touched,
-              'is-valid':
-                !(usernameInput.invalid && usernameInput.touched) &&
-                usernameInput.valid
-            }"
-          />
-        </div>
-        <div class="mb-3">
-          <input
-            type="text"
-            class="form-control"
             name="email"
             placeholder="Email"
             required

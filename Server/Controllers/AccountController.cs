@@ -23,12 +23,16 @@ namespace Server.Controllers {
 
         [HttpPost("register")]
         public async Task<ActionResult> RegisterUser([FromBody] RegisterUserRequest registerDto) {
-            var data = await _userRepo.IsExistingUser(registerDto.Email);
-            if (data) {
-                return BadRequest("Email is already used!");
+            try {
+                var data = await _userRepo.IsExistingUser(registerDto.Email);
+                if (data) {
+                    return BadRequest("Email is already used!");
+                }
+                await _accService.RegisterUser(registerDto);
+                return Ok("User successfully saved");
+            } catch (Exception e) {
+                return BadRequest(e.Message);
             }
-            await _accService.RegisterUser(registerDto);
-            return Ok("User successfully saved");
         }
 
         [HttpPost("login")]
@@ -38,7 +42,7 @@ namespace Server.Controllers {
                 return Unauthorized("Invalid Email or Password");
             }
 
-            return Ok( new {
+            return Ok(new {
                 user = user,
                 token = _tokenService.CreateToken(user)
             });

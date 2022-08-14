@@ -30,7 +30,6 @@ export class EditAccountDetailsComponent implements OnInit {
     this.user$
       .pipe(skipWhile((user: User) => user === null))
       .subscribe((user) => {
-        this.name = user.firstName;
         this.email = user.email;
         this.user = user;
       });
@@ -51,7 +50,7 @@ export class EditAccountDetailsComponent implements OnInit {
   }
 
   submitChanges(form) {
-    this.user = { ...this.user, firstName: form.name, email: form.email };
+    this.user = { ...this.user, email: form.email };
   }
 
   blur(): void {}

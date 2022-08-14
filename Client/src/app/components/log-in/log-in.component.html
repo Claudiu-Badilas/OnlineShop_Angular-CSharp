@@ -17,18 +17,16 @@
         <div class="mb-3">
           <label><b>Email*</b></label>
           <input
-            type="text"
+            type="email"
             class="form-control"
-            name="username"
-            placeholder="Username"
+            name="email"
+            placeholder="Email"
             ngModel
-            #usernameInput="ngModel"
+            #email="ngModel"
             required
             [ngClass]="{
-              'is-invalid': usernameInput.invalid && usernameInput.touched,
-              'is-valid':
-                !(usernameInput.invalid && usernameInput.touched) &&
-                usernameInput.valid
+              'is-invalid': email.invalid && email.touched,
+              'is-valid': !(email.invalid && email.touched) && email.valid
             }"
           />
         </div>
