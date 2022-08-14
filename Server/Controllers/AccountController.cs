@@ -29,7 +29,7 @@ namespace Server.Controllers {
                     return BadRequest("Email is already used!");
                 }
                 await _accService.RegisterUser(registerDto);
-                return Ok("User successfully saved");
+                return Ok();
             } catch (Exception e) {
                 return BadRequest(e.Message);
             }
@@ -37,15 +37,19 @@ namespace Server.Controllers {
 
         [HttpPost("login")]
         public async Task<ActionResult> Login([FromBody] LoginUserRequest loginDto) {
-            var user = await _accService.LoginUser(loginDto);
-            if (user == null) {
-                return Unauthorized("Invalid Email or Password");
-            }
+            try {
+                var user = await _accService.LoginUser(loginDto);
+                if (user == null) {
+                    return Unauthorized("Invalid Email or Password");
+                }
 
-            return Ok(new {
-                user = user,
-                token = _tokenService.CreateToken(user)
-            });
+                return Ok(new {
+                    user = user,
+                    token = _tokenService.CreateToken(user)
+                });
+            } catch (Exception e) {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

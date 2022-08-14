@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
       this.authenticationService.register(user).subscribe(
         (res) => {
           this.showLoading = false;
-          this.sendNotification(
+          this.notificationService.notify(
             NotificationType.SUCCESS,
             `Hi ${user.email}, you have successfully created an account !`
           );
@@ -50,33 +50,11 @@ export class RegisterComponent implements OnInit {
           );
         },
         (errRes: HttpErrorResponse) => {
-          console.log(
-            '🚀 ~ file: register.component.ts ~ line 53 ~ RegisterComponent ~ onRegister ~ errRes',
-            errRes
-          );
-          this.sendNotification(NotificationType.ERROR, errRes.error);
+          this.notificationService.notify(NotificationType.ERROR, errRes.error);
           this.showLoading = false;
         }
       )
     );
-  }
-
-  private sendNotification(
-    notificationType: NotificationType,
-    message: string
-  ): void {
-    if (message) {
-      console.log(
-        '🚀 ~ file: register.component.ts ~ line 65 ~ RegisterComponent ~ message',
-        message
-      );
-      this.notificationService.notify(notificationType, message);
-    } else {
-      this.notificationService.notify(
-        notificationType,
-        'An error occurred. Please try again.'
-      );
-    }
   }
 
   ngOnDestroy(): void {

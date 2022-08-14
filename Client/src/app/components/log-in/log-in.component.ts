@@ -43,9 +43,9 @@ export class LogInComponent implements OnInit, OnDestroy {
     this.showLoading = true;
     this.subscriptions.push(
       this.authenticationService.login(user).subscribe(
-        (response: HttpResponse<any>) => {
-          this.authenticationService.saveToken(response.body.token);
-          this.authenticationService.addUserToLocalCache(response.body.user);
+        (res: HttpResponse<any>) => {
+          this.authenticationService.saveToken(res.body.token);
+          this.authenticationService.addUserToLocalCache(res.body.user);
           this.store.dispatch(
             NavigationActions.navigateTo({
               route: `/products/category/Oats`,
@@ -55,7 +55,7 @@ export class LogInComponent implements OnInit, OnDestroy {
           this.showLoading = false;
           this.notificationService.notify(
             NotificationType.SUCCESS,
-            'Welcome Back!'
+            `Welcome Back ${res.body.user.email}!`
           );
         },
         (errorResponse: HttpErrorResponse) => {
