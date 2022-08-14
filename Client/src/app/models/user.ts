@@ -2,9 +2,6 @@ import { Role } from '../shared/enum/role.enum';
 
 export class User {
   public id: string;
-  public firstName: string;
-  public lastName: string;
-  public username: string;
   public email: string;
   public lastLoginDate: any;
   public joinDate: any;
@@ -13,13 +10,10 @@ export class User {
 
   constructor(res?: any) {
     this.id = res.id;
-    this.firstName = res.firstName;
-    this.lastName = res.lastName;
-    this.username = res.username;
-    this.email = res.emailAddress;
+    this.email = res.email;
     this.lastLoginDate = res.lastLogin;
     this.joinDate = res.joinDate;
     this.active = res.isActive;
-    this.role = res.role;
+    this.role = { id: res.roleId, name: res.roleName };
   }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Server.Models {
-    public class LoginDto {
-        public string Username { get; set; }
+    public class LoginUserRequest {
+        public string Email { get; set; }
         public string Password { get; set; }
     }
 }

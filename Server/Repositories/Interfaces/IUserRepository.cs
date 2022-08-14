@@ -2,8 +2,9 @@
 
 namespace Server.Repositories.Interfaces {
     public interface IUserRepository {
-        Task<AppUser> GetUser(string username);
+        Task<bool> IsExistingUser(string email);
         Task<AppUser> GetUserById(long userId);
+        Task<AppUser> GetUserByEmail(string email);
         Task AddUser(AppUser user);
     }
 }

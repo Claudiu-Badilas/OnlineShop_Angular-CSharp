@@ -165,15 +165,14 @@ export class PlatformEffects {
       this.store.pipe(select(fromPlatform.getSelectedCategory)),
     ]).pipe(
       debounceTime(200),
-      filter(([url, params, , selectedCategory]) => {
-        return (
+      filter(
+        ([url, params, , selectedCategory]) =>
           url.startsWith(`/products`) &&
           selectedCategory &&
           params &&
           params['name'] !== null &&
           params['name'] !== selectedCategory.name
-        );
-      }),
+      ),
       map(([, params, categories]) => {
         const category = categories.find(
           (c) => c !== null && c.name === params['categoryName']
@@ -253,9 +252,7 @@ export class PlatformEffects {
       this.store.pipe(select(fromPlatform.getUser)),
     ]).pipe(
       debounceTime(500),
-      filter(([url]) => {
-        return url.includes('/orders');
-      }),
+      filter(([url]) => url.includes('/orders')),
       mergeMap(([, user]) =>
         this._orderService.getOrdersByUserId(+user.id).pipe(
           map((orders) => PlatformActions.loadOrders({ orders })),

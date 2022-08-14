@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
-import { User } from '@src/models/user';
-import { HeaderType } from '@src/shared/enum/header-type.enum';
 import { AuthenticationService } from '@src/services/authentication.service';
 import { NotificationService } from '@src/services/notification.service';
 import { NotificationType } from '@src/shared/enum/notification-type.enum';
+import * as NavigationActions from '../../store/navigation-state/navigation.actions';
+import { Store } from '@ngrx/store';
+import { AppState } from '@src/store/app.state';
 
 @Component({
   selector: 'app-log-in',
@@ -18,32 +18,44 @@ export class LogInComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private router: Router,
+    private store: Store<AppState>,
     private notificationService: NotificationService,
     private authenticationService: AuthenticationService
   ) {}
 
   ngOnInit(): void {
     if (this.authenticationService.isUserLoggedIn()) {
-      this.router.navigateByUrl('/products/category/Oats');
+      this.store.dispatch(
+        NavigationActions.navigateTo({
+          route: `/products/category/Oats`,
+        })
+      );
     } else {
-      this.router.navigateByUrl('/login');
+      this.store.dispatch(
+        NavigationActions.navigateTo({
+          route: `/login`,
+        })
+      );
     }
   }
 
-  public onLogin(user: User): void {
+  public onLogin(user: { email: string; password: string }): void {
     this.showLoading = true;
     this.subscriptions.push(
       this.authenticationService.login(user).subscribe(
-        (response: HttpResponse<any>) => {
-          this.authenticationService.saveToken(response.body.token);
-          this.authenticationService.addUserToLocalCache(response.body);
-          this.router.navigateByUrl('/products/category/Oats');
+        (res: HttpResponse<any>) => {
+          this.authenticationService.saveToken(res.body.token);
+          this.authenticationService.addUserToLocalCache(res.body.user);
+          this.store.dispatch(
+            NavigationActions.navigateTo({
+              route: `/products/category/Oats`,
+            })
+          );
           window.location.reload();
           this.showLoading = false;
           this.notificationService.notify(
             NotificationType.SUCCESS,
-            'Welcome Back!'
+            `Welcome Back ${res.body.user.email}!`
           );
         },
         (errorResponse: HttpErrorResponse) => {

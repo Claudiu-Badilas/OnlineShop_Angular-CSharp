@@ -65,9 +65,6 @@ export class UserService {
   ): FormData {
     const formData = new FormData();
     formData.append('currentUsername', loggedInUsername);
-    formData.append('firstName', user.firstName);
-    formData.append('lastName', user.lastName);
-    formData.append('username', user.username);
     formData.append('email', user.email);
     formData.append('role', user.role.name);
     formData.append('isActive', JSON.stringify(user.active));
